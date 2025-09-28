@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tools404 - Your Daily Tools, All in One Place</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Custom font import for a clean, modern look */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* Light off-white background */
+        }
+        /* Customizing Tailwind colors for a fresh teal/cyan theme */
+        .color-accent { background-color: #06b6d4; } /* Cyan 600 */
+        .text-accent { color: #06b6d4; } /* Cyan 600 */
+        .border-accent { border-color: #06b6d4; } /* Cyan 600 */
+        .hover-accent:hover { background-color: #0891b2; } /* Cyan 700 */
+
+        /* Hide search sections initially for the JS to manage visibility */
+        .tool-section {
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        /* Hover animation for tool cards */
+        .tool-card {
+            transition: all 0.2s ease-in-out;
+        }
+        .tool-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        
+        /* Custom scrollbar for better aesthetics */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <!-- Header & Navigation -->
+    <header class="sticky top-0 z-50 bg-white shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <a href="#" class="flex-shrink-0">
+                    <span class="text-2xl font-bold text-gray-900">Tools<span class="text-accent">404</span></span>
+                    <span class="text-lg text-gray-500 font-light ml-2">| Wonder</span>
+                </a>
+                
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#" class="text-gray-600 hover:text-accent font-medium transition duration-150">Home</a>
+                    <a href="#tools" class="text-gray-600 hover:text-accent font-medium transition duration-150">Tools</a>
+                    <a href="#contact" class="text-gray-600 hover:text-accent font-medium transition duration-150">Contact</a>
+                </nav>
+
+                <!-- Contact Email (Gmail only) -->
+                <div class="hidden md:flex items-center space-x-4">
+                    <a href="mailto:lifetool01@gmail.com" class="text-sm font-medium text-gray-500 hover:text-accent transition duration-150">
+                        <i data-lucide="mail" class="w-4 h-4 inline-block mr-1"></i> lifetool01@gmail.com
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button (Hamburger) -->
+                <button id="mobile-menu-btn" class="md:hidden p-2 rounded-md text-gray-600 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-accent" aria-label="Toggle menu">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu (Hidden by default) -->
+        <div id="mobile-menu" class="hidden md:hidden absolute w-full bg-white shadow-xl">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-accent">Home</a>
+                <a href="#tools" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-accent">Tools</a>
+                <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-accent">Contact</a>
+                <a href="mailto:lifetool01@gmail.com" class="block px-3 py-2 rounded-md text-base font-medium text-gray-500">
+                    <i data-lucide="mail" class="w-4 h-4 inline-block mr-1"></i> lifetool01@gmail.com
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+
+        <!-- Hero Section -->
+        <section class="text-center mb-16 md:mb-24">
+            <div class="max-w-4xl mx-auto">
+                <h1 class="text-5xl sm:text-6xl lg:text-7xl font-extrabold text-gray-900 mb-4 leading-tight">
+                    Your <span class="text-accent">Daily Tools</span>, All in One Place
+                </h1>
+                <p class="text-xl sm:text-2xl text-gray-600 mb-8 max-w-2xl mx-auto">
+                    Convert, calculate, compress, and simplify your everyday tasks — fast and free.
+                </p>
+                <!-- Tool Variety Illustration/Icons -->
+                <div class="flex justify-center space-x-6 mb-10 text-gray-500">
+                    <span class="flex items-center text-lg font-medium"><i data-lucide="image" class="w-8 h-8 text-cyan-500 mr-2"></i> Image</span>
+                    <span class="flex items-center text-lg font-medium"><i data-lucide="file-text" class="w-8 h-8 text-blue-500 mr-2"></i> Document</span>
+                    <span class="flex items-center text-lg font-medium"><i data-lucide="code" class="w-8 h-8 text-purple-500 mr-2"></i> Code</span>
+                    <span class="flex items-center text-lg font-medium"><i data-lucide="calculator" class="w-8 h-8 text-emerald-500 mr-2"></i> Calculate</span>
+                </div>
+                
+                <!-- CTA Button -->
+                <a href="#tools" class="inline-block px-10 py-4 text-lg font-semibold text-white color-accent rounded-full shadow-lg shadow-cyan-300/50 hover-accent transform hover:scale-105 transition duration-300 ease-in-out">
+                    Explore Tools
+                </a>
+            </div>
+        </section>
+
+        <!-- Search Bar (Prominent and Functional) -->
+        <section class="mb-16 md:mb-20">
+            <div class="relative max-w-3xl mx-auto">
+                <i data-lucide="search" class="absolute left-4 top-1/2 transform -translate-y-1/2 w-6 h-6 text-gray-400"></i>
+                <input 
+                    id="tool-search" 
+                    type="text" 
+                    placeholder="Search a tool by name or keyword..." 
+                    class="w-full py-5 pl-14 pr-4 border-2 border-gray-200 rounded-xl shadow-lg focus:ring-4 focus:ring-cyan-100 focus:border-accent text-lg outline-none transition duration-150"
+                    oninput="filterTools(this.value)"
+                >
+            </div>
+        </section>
+
+        <!-- Tool Sections Container -->
+        <section id="tools" class="space-y-16 md:space-y-24">
+            <!-- This content will be generated and populated by JavaScript -->
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer id="contact" class="bg-gray-900 text-white mt-16 md:mt-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 border-b border-gray-700 pb-8 mb-8">
+                <!-- Logo and Tagline -->
+                <div>
+                    <span class="text-3xl font-bold">Tools<span class="text-accent">404</span></span>
+                    <span class="text-xl font-light ml-2">| Wonder</span>
+                    <p class="mt-4 text-gray-400">Simplifying your digital life.</p>
+                </div>
+
+                <!-- Contact Info -->
+                <div class="md:col-span-1">
+                    <h3 class="text-xl font-semibold mb-4 text-white">Get in Touch</h3>
+                    <p class="text-gray-400">We respond to all inquiries via email.</p>
+                    <a href="mailto:lifetool01@gmail.com" class="text-accent hover:text-cyan-400 font-medium mt-2 block transition duration-150">
+                         lifetool01@gmail.com
+                    </a>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="md:col-span-1">
+                    <h3 class="text-xl font-semibold mb-4 text-white">Legal</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-accent transition duration-150">Privacy Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-accent transition duration-150">Terms of Use</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Copyright -->
+            <div class="text-center text-gray-500 pt-4">
+                &copy; <span id="current-year"></span> Tools404. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Data structure for all tools
+        const toolsData = [
+            // 🖼 Image Tools
+            { category: "Image Tools", icon: "image", name: "Image Converter", desc: "Convert between JPG, PNG, WEBP, and more.", link: "#" },
+            { category: "Image Tools", icon: "minimize-2", name: "Image Compressor", desc: "Reduce file size without losing quality.", link: "#" },
+            { category: "Image Tools", icon: "maximize-2", name: "Image Resizer", desc: "Quickly scale images to custom dimensions.", link: "#" },
+            { category: "Image Tools", icon: "crop", name: "Image Cropper", desc: "Define and crop a specific area of an image.", link: "#" },
+            { category: "Image Tools", icon: "file-text", name: "Image to Text (OCR)", desc: "Extract editable text from any image file.", link: "#" },
+            { category: "Image Tools", icon: "rotate-ccw", name: "Image Rotator/Flipper", desc: "Rotate or flip images horizontally/vertically.", link: "#" },
+
+            // 📄 Document Tools
+            { category: "Document Tools", icon: "file-text", name: "PDF to Word / Word to PDF", desc: "Seamlessly convert documents both ways.", link: "#" },
+            { category: "Document Tools", icon: "compress", name: "PDF Compressor", desc: "Shrink large PDF files for easy sharing.", link: "#" },
+            { category: "Document Tools", icon: "layers", name: "PDF Merger & Splitter", desc: "Combine multiple PDFs or divide a single one.", link: "#" },
+            { category: "Document Tools", icon: "file-input", name: "Document Converter", desc: "Convert files like DOCX, EPUB, and TXT.", link: "#" },
+            { category: "Document Tools", icon: "lock", name: "PDF Lock/Unlock", desc: "Secure PDFs with a password or remove protection.", link: "#" },
+            { category: "Document Tools", icon: "pen-tool", name: "eSign PDF", desc: "Add digital signatures to your PDF documents.", link: "#" },
+
+            // 🧮 Calculator Tools
+            { category: "Calculator Tools", icon: "calculator", name: "Scientific Calculator", desc: "Perform advanced mathematical operations.", link: "#" },
+            { category: "Calculator Tools", icon: "calendar", name: "Age Calculator", desc: "Calculate exact age based on birth date.", link: "#" },
+            { category: "Calculator Tools", icon: "gauge", name: "BMI Calculator", desc: "Determine your Body Mass Index.", link: "#" },
+            { category: "Calculator Tools", icon: "building", name: "Loan EMI Calculator", desc: "Estimate your Equated Monthly Installment.", link: "#" },
+            { category: "Calculator Tools", icon: "receipt", name: "GST Calculator", desc: "Add or remove GST from a net amount.", link: "#" },
+            { category: "Calculator Tools", icon: "trending-up", name: "Currency Converter", desc: "Convert global currencies with live rates.", link: "#" },
+
+            // 🔤 Text Tools
+            { category: "Text Tools", icon: "type", name: "Text Case Converter", desc: "Switch text between uppercase, lowercase, etc.", link: "#" },
+            { category: "Text Tools", icon: "sigma", name: "Word & Character Counter", desc: "Analyze word and character count instantly.", link: "#" },
+            { category: "Text Tools", icon: "zap-off", name: "Remove Duplicate Lines", desc: "Clean up lists by deleting repeated entries.", link: "#" },
+            { category: "Text Tools", icon: "sort-asc", name: "Text Sorter", desc: "Sort lines of text alphabetically or numerically.", link: "#" },
+            { category: "Text Tools", icon: "rotate-cw", name: "Text Reverser", desc: "Reverse the order of text or words.", link: "#" },
+            { category: "Text Tools", icon: "key", name: "Text Encryptor/Decryptor", desc: "Secure or decipher sensitive text messages.", link: "#" },
+
+            // 🌐 Web/Developer Tools
+            { category: "Web/Developer Tools", icon: "code", name: "HTML/CSS/JS Minifier", desc: "Reduce file size for faster load times.", link: "#" },
+            { category: "Web/Developer Tools", icon: "brackets", name: "JSON Formatter & Validator", desc: "Beautify and check your JSON structure.", link: "#" },
+            { category: "Web/Developer Tools", icon: "lock", name: "Base64 Encoder/Decoder", desc: "Encode and decode Base64 strings easily.", link: "#" },
+            { category: "Web/Developer Tools", icon: "link", name: "URL Encoder/Decoder", desc: "Encode or decode special characters in URLs.", link: "#" },
+            { category: "Web/Developer Tools", icon: "droplet", name: "Color Picker & Converter", desc: "Find colors and convert between HEX, RGB, HSL.", link: "#" },
+            { category: "Web/Developer Tools", icon: "regex", name: "Regex Tester", desc: "Test and debug your regular expressions.", link: "#" },
+
+            // 🎨 Color Tools
+            { category: "Color Tools", icon: "eye", name: "Color Picker from Image", desc: "Extract precise color codes from uploaded images.", link: "#" },
+            { category: "Color Tools", icon: "palette", name: "HEX to RGB Converter", desc: "Convert color codes instantly.", link: "#" },
+            { category: "Color Tools", icon: "edit-3", name: "Gradient Generator", desc: "Create smooth CSS color gradients.", link: "#" },
+            { category: "Color Tools", icon: "alert-triangle", name: "Contrast Checker", desc: "Check text-to-background contrast ratio (WCAG).", link: "#" },
+            { category: "Color Tools", icon: "swatch", name: "Palette Generator", desc: "Generate professional color schemes instantly.", link: "#" },
+            { category: "Color Tools", icon: "glasses", name: "Color Blindness Simulator", desc: "View colors as seen by different types of color blindness.", link: "#" },
+
+            // 🌍 SEO & Marketing Tools
+            { category: "SEO & Marketing Tools", icon: "hash", name: "Keyword Density Checker", desc: "Analyze keyword repetition on a page.", link: "#" },
+            { category: "SEO & Marketing Tools", icon: "bar-chart-2", name: "Meta Tag Analyzer", desc: "Review and optimize your page's meta tags.", link: "#" },
+            { category: "SEO & Marketing Tools", icon: "file-bar-chart-2", name: "Word Counter", desc: "Count words, sentences, and paragraphs in text.", link: "#" },
+            
+            // 🛠️ Utility Tools
+            { category: "Utility Tools", icon: "scan-line", name: "QR Code Generator & Scanner", desc: "Create or decode QR codes instantly.", link: "#" },
+            { category: "Utility Tools", icon: "barcode", name: "Barcode Generator", desc: "Generate standard barcodes for products.", link: "#" },
+            { category: "Utility Tools", icon: "fingerprint", name: "UUID Generator", desc: "Generate universally unique identifiers (UUIDs).", link: "#" },
+            { category: "Utility Tools", icon: "box", name: "Unit Converter", desc: "Convert weight, length, volume, and more.", link: "#" },
+            { category: "Utility Tools", icon: "globe", name: "Time Zone Converter", desc: "Convert times across global time zones.", link: "#" },
+            { category: "Utility Tools", icon: "shuffle", name: "Random Number/Password Generator", desc: "Generate secure, random data.", link: "#" },
+        ];
+
+        // Group tools by category
+        const groupedTools = toolsData.reduce((acc, tool) => {
+            if (!acc[tool.category]) {
+                acc[tool.category] = {
+                    heading: tool.heading || tool.category,
+                    desc: tool.desc || '',
+                    tools: []
+                };
+            }
+            acc[tool.category].tools.push(tool);
+            return acc;
+        }, {});
+
+
+        /**
+         * Renders all tool sections and cards into the main container.
+         * @param {Array} filteredTools - Optional array of tools to render (used for search).
+         */
+        function renderTools(filteredTools = toolsData) {
+            const container = document.getElementById('tools');
+            container.innerHTML = '';
+            
+            const grouped = filteredTools.reduce((acc, tool) => {
+                if (!acc[tool.category]) {
+                    // Find the heading/desc from the original data if not present on the tool object
+                    const originalGroup = groupedTools[tool.category];
+                    acc[tool.category] = {
+                        heading: originalGroup ? originalGroup.heading : tool.category,
+                        desc: tool.desc, // The original tool object has desc, but this is fine.
+                        tools: []
+                    };
+                }
+                acc[tool.category].tools.push(tool);
+                return acc;
+            }, {});
+
+            for (const category in grouped) {
+                const group = grouped[category];
+                
+                // Use a standard icon for the section heading, like the main category icon or a gear
+                let sectionIcon = '';
+                if (category.includes("Image")) sectionIcon = 'image';
+                else if (category.includes("Document")) sectionIcon = 'file-text';
+                else if (category.includes("Calculator")) sectionIcon = 'calculator';
+                else if (category.includes("Text")) sectionIcon = 'type';
+                else if (category.includes("Web/Developer")) sectionIcon = 'code';
+                else if (category.includes("Color")) sectionIcon = 'palette';
+                else if (category.includes("SEO")) sectionIcon = 'bar-chart-2';
+                else if (category.includes("Utility")) sectionIcon = 'tool';
+                else sectionIcon = 'grid';
+
+                // Create the section element
+                const sectionHtml = `
+                    <div id="section-${category.replace(/\s/g, '-')}" class="tool-section">
+                        <div class="mb-8">
+                            <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-2 flex items-center">
+                                <i data-lucide="${sectionIcon}" class="w-8 h-8 text-accent mr-3"></i>
+                                ${category}
+                            </h2>
+                            <p class="text-lg text-gray-500 max-w-2xl">${group.tools[0].desc}</p>
+                        </div>
+                        
+                        <!-- Tool Card Grid -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                            ${group.tools.map(tool => `
+                                <div class="tool-card bg-white p-6 rounded-xl border border-gray-200 shadow-md flex flex-col justify-between">
+                                    <div class="mb-4">
+                                        <i data-lucide="${tool.icon}" class="w-8 h-8 text-accent mb-3"></i>
+                                        <h3 class="text-xl font-semibold text-gray-900 mb-2">${tool.name}</h3>
+                                        <p class="text-sm text-gray-500">${tool.desc}</p>
+                                    </div>
+                                    <a href="${tool.link}" class="inline-flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-white color-accent rounded-lg hover-accent transition duration-200">
+                                        Use Tool
+                                    </a>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+                container.insertAdjacentHTML('beforeend', sectionHtml);
+            }
+            // After rendering, initialize Lucide icons for the new elements
+            lucide.createIcons();
+
+            // Show a "No Results" message if filteredTools is empty
+            if (filteredTools.length === 0) {
+                 container.innerHTML = `
+                    <div class="text-center py-16">
+                        <i data-lucide="frown" class="w-16 h-16 text-gray-400 mx-auto mb-4"></i>
+                        <h2 class="text-3xl font-semibold text-gray-700 mb-2">No tools found</h2>
+                        <p class="text-gray-500">Try adjusting your search terms or browse the categories below.</p>
+                    </div>
+                `;
+                lucide.createIcons();
+            }
+        }
+
+        /**
+         * Filters tools based on search query and re-renders the sections.
+         * @param {string} query - The search string from the input field.
+         */
+        function filterTools(query) {
+            const normalizedQuery = query.toLowerCase().trim();
+
+            if (normalizedQuery.length === 0) {
+                renderTools(toolsData);
+                return;
+            }
+
+            const filtered = toolsData.filter(tool => 
+                tool.name.toLowerCase().includes(normalizedQuery) ||
+                tool.desc.toLowerCase().includes(normalizedQuery) ||
+                tool.category.toLowerCase().includes(normalizedQuery)
+            );
+
+            // Temporarily update tool data to include the category heading/desc for isolated rendering
+            const tempFiltered = filtered.map(tool => ({
+                ...tool,
+                heading: groupedTools[tool.category].heading,
+                desc: groupedTools[tool.category].desc
+            }));
+
+            renderTools(tempFiltered);
+        }
+
+        // --- Event Listeners and Initial Setup ---
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Initial render of all tools
+            renderTools();
+            
+            // 2. Mobile menu toggle
+            const menuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            menuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+                const iconElement = menuBtn.querySelector('svg');
+                if (mobileMenu.classList.contains('hidden')) {
+                    iconElement.setAttribute('data-lucide', 'menu');
+                } else {
+                    iconElement.setAttribute('data-lucide', 'x');
+                }
+                lucide.createIcons(); // Re-initialize icons after changing them
+            });
+
+            // 3. Set current year in footer
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+        });
+
+    </script>
+</body>
+</html>
