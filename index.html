@@ -24,6 +24,7 @@
         /* Hide search sections initially for the JS to manage visibility */
         .tool-section {
             transition: opacity 0.3s ease-in-out;
+            scroll-margin-top: 80px; /* Adjust for sticky header when linking */
         }
 
         /* Hover animation for tool cards */
@@ -33,6 +34,20 @@
         .tool-card:hover {
             transform: translateY(-4px);
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Styling for the new clickable hero icons */
+        .hero-link {
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: 9999px;
+            transition: background-color 0.2s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+        }
+        .hero-link:hover {
+            background-color: #e0f7fa; /* Light cyan background on hover */
         }
         
         /* Custom scrollbar for better aesthetics */
@@ -109,12 +124,28 @@
                 <p class="text-xl sm:text-2xl text-gray-600 mb-8 max-w-2xl mx-auto">
                     Convert, calculate, compress, and simplify your everyday tasks — fast and free.
                 </p>
-                <!-- Tool Variety Illustration/Icons -->
-                <div class="flex justify-center space-x-6 mb-10 text-gray-500">
-                    <span class="flex items-center text-lg font-medium"><i data-lucide="image" class="w-8 h-8 text-cyan-500 mr-2"></i> Image</span>
-                    <span class="flex items-center text-lg font-medium"><i data-lucide="file-text" class="w-8 h-8 text-blue-500 mr-2"></i> Document</span>
-                    <span class="flex items-center text-lg font-medium"><i data-lucide="code" class="w-8 h-8 text-purple-500 mr-2"></i> Code</span>
-                    <span class="flex items-center text-lg font-medium"><i data-lucide="calculator" class="w-8 h-8 text-emerald-500 mr-2"></i> Calculate</span>
+                <!-- Tool Variety Illustration/Icons (Now clickable links) -->
+                <div class="flex justify-center space-x-2 sm:space-x-6 mb-10 text-gray-500 flex-wrap">
+                    <!-- Link to Image Tools -->
+                    <a href="#section-Image-Tools" class="hero-link">
+                        <i data-lucide="image" class="w-6 h-6 sm:w-8 sm:h-8 text-cyan-500 mr-2"></i> 
+                        <span class="text-sm sm:text-lg font-medium">Image</span>
+                    </a>
+                    <!-- Link to Document Tools -->
+                    <a href="#section-Document-Tools" class="hero-link">
+                        <i data-lucide="file-text" class="w-6 h-6 sm:w-8 sm:h-8 text-blue-500 mr-2"></i> 
+                        <span class="text-sm sm:text-lg font-medium">Document</span>
+                    </a>
+                    <!-- Link to Web/Developer Tools (Code) -->
+                    <a href="#section-Web-Developer-Tools" class="hero-link">
+                        <i data-lucide="code" class="w-6 h-6 sm:w-8 sm:h-8 text-purple-500 mr-2"></i> 
+                        <span class="text-sm sm:text-lg font-medium">Code</span>
+                    </a>
+                    <!-- Link to Calculator Tools -->
+                    <a href="#section-Calculator-Tools" class="hero-link">
+                        <i data-lucide="calculator" class="w-6 h-6 sm:w-8 sm:h-8 text-emerald-500 mr-2"></i> 
+                        <span class="text-sm sm:text-lg font-medium">Calculate</span>
+                    </a>
                 </div>
                 
                 <!-- CTA Button -->
@@ -183,6 +214,18 @@
     </footer>
 
     <script>
+        // Define Category Metadata (Headings, Descriptions, and Link-Friendly ID)
+        const categoryMeta = {
+            "Image Tools": { icon: "image", desc: "Edit, convert, compress, and manipulate your image files with ease.", id: "section-Image-Tools" },
+            "Document Tools": { icon: "file-text", desc: "Everything you need to manage PDFs and various document formats.", id: "section-Document-Tools" },
+            "Calculator Tools": { icon: "calculator", desc: "Financial, health, and mathematical calculators for daily use.", id: "section-Calculator-Tools" },
+            "Text Tools": { icon: "type", desc: "Utilities for formatting, cleaning, sorting, and securing text content.", id: "section-Text-Tools" },
+            "Web/Developer Tools": { icon: "code", desc: "Essential utilities for web development, coding, and debugging.", id: "section-Web-Developer-Tools" },
+            "Color Tools": { icon: "palette", desc: "Generate palettes, convert formats, and check color accessibility.", id: "section-Color-Tools" },
+            "SEO & Marketing Tools": { icon: "bar-chart-2", desc: "Optimize your content for search engines and market analysis.", id: "section-SEO-Marketing-Tools" },
+            "Utility Tools": { icon: "tool", desc: "General-purpose tools like converters, generators, and timers.", id: "section-Utility-Tools" },
+        };
+
         // Data structure for all tools
         const toolsData = [
             // 🖼 Image Tools
@@ -248,13 +291,10 @@
         ];
 
         // Group tools by category
+        // (This initial grouping logic is no longer strictly needed but kept for context on toolsData structure)
         const groupedTools = toolsData.reduce((acc, tool) => {
             if (!acc[tool.category]) {
-                acc[tool.category] = {
-                    heading: tool.heading || tool.category,
-                    desc: tool.desc || '',
-                    tools: []
-                };
+                acc[tool.category] = { tools: [] };
             }
             acc[tool.category].tools.push(tool);
             return acc;
@@ -269,44 +309,39 @@
             const container = document.getElementById('tools');
             container.innerHTML = '';
             
+            // 1. Group the tools by category from the filtered list
             const grouped = filteredTools.reduce((acc, tool) => {
                 if (!acc[tool.category]) {
-                    // Find the heading/desc from the original data if not present on the tool object
-                    const originalGroup = groupedTools[tool.category];
-                    acc[tool.category] = {
-                        heading: originalGroup ? originalGroup.heading : tool.category,
-                        desc: tool.desc, // The original tool object has desc, but this is fine.
-                        tools: []
-                    };
+                    acc[tool.category] = { tools: [] };
                 }
                 acc[tool.category].tools.push(tool);
                 return acc;
             }, {});
 
+            // 2. Iterate through groups and generate HTML sections
             for (const category in grouped) {
                 const group = grouped[category];
                 
-                // Use a standard icon for the section heading, like the main category icon or a gear
-                let sectionIcon = '';
-                if (category.includes("Image")) sectionIcon = 'image';
-                else if (category.includes("Document")) sectionIcon = 'file-text';
-                else if (category.includes("Calculator")) sectionIcon = 'calculator';
-                else if (category.includes("Text")) sectionIcon = 'type';
-                else if (category.includes("Web/Developer")) sectionIcon = 'code';
-                else if (category.includes("Color")) sectionIcon = 'palette';
-                else if (category.includes("SEO")) sectionIcon = 'bar-chart-2';
-                else if (category.includes("Utility")) sectionIcon = 'tool';
-                else sectionIcon = 'grid';
+                // Get metadata (icon, description, id) from the predefined meta map
+                const meta = categoryMeta[category];
 
+                // Safety check: ensure metadata exists
+                if (!meta) {
+                    console.error(`Metadata missing for category: ${category}`);
+                    continue; 
+                }
+                
                 // Create the section element
                 const sectionHtml = `
-                    <div id="section-${category.replace(/\s/g, '-')}" class="tool-section">
+                    <!-- Tool Section: ${category} -->
+                    <div id="${meta.id}" class="tool-section">
                         <div class="mb-8">
                             <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-2 flex items-center">
-                                <i data-lucide="${sectionIcon}" class="w-8 h-8 text-accent mr-3"></i>
+                                <i data-lucide="${meta.icon}" class="w-8 h-8 text-accent mr-3"></i>
                                 ${category}
                             </h2>
-                            <p class="text-lg text-gray-500 max-w-2xl">${group.tools[0].desc}</p>
+                            <!-- Use the defined category description -->
+                            <p class="text-lg text-gray-500 max-w-2xl">${meta.desc}</p>
                         </div>
                         
                         <!-- Tool Card Grid -->
@@ -328,6 +363,7 @@
                 `;
                 container.insertAdjacentHTML('beforeend', sectionHtml);
             }
+            
             // After rendering, initialize Lucide icons for the new elements
             lucide.createIcons();
 
@@ -336,8 +372,8 @@
                  container.innerHTML = `
                     <div class="text-center py-16">
                         <i data-lucide="frown" class="w-16 h-16 text-gray-400 mx-auto mb-4"></i>
-                        <h2 class="text-3xl font-semibold text-gray-700 mb-2">No tools found</h2>
-                        <p class="text-gray-500">Try adjusting your search terms or browse the categories below.</p>
+                        <h2 class="text-3xl font-semibold text-gray-700 mb-2">कोई टूल नहीं मिला (No tools found)</h2>
+                        <p class="text-gray-500">कृपया अपनी खोज की शर्तों को बदलें या नीचे दी गई श्रेणियों को ब्राउज़ करें। (Try adjusting your search terms or browse the categories below.)</p>
                     </div>
                 `;
                 lucide.createIcons();
@@ -350,26 +386,23 @@
          */
         function filterTools(query) {
             const normalizedQuery = query.toLowerCase().trim();
+            console.log("Searching for:", normalizedQuery); // Debug log
 
             if (normalizedQuery.length === 0) {
                 renderTools(toolsData);
                 return;
             }
 
+            // Filter by tool name, description, or category name
             const filtered = toolsData.filter(tool => 
                 tool.name.toLowerCase().includes(normalizedQuery) ||
                 tool.desc.toLowerCase().includes(normalizedQuery) ||
                 tool.category.toLowerCase().includes(normalizedQuery)
             );
 
-            // Temporarily update tool data to include the category heading/desc for isolated rendering
-            const tempFiltered = filtered.map(tool => ({
-                ...tool,
-                heading: groupedTools[tool.category].heading,
-                desc: groupedTools[tool.category].desc
-            }));
+            // console.log("Filtered results:", filtered); // Debug log
 
-            renderTools(tempFiltered);
+            renderTools(filtered);
         }
 
         // --- Event Listeners and Initial Setup ---
@@ -385,6 +418,7 @@
             menuBtn.addEventListener('click', () => {
                 mobileMenu.classList.toggle('hidden');
                 const iconElement = menuBtn.querySelector('svg');
+                // Toggle between menu and close icons
                 if (mobileMenu.classList.contains('hidden')) {
                     iconElement.setAttribute('data-lucide', 'menu');
                 } else {
